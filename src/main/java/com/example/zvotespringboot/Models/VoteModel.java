@@ -88,7 +88,7 @@ public class VoteModel {
 
 
     // Setter for candidate_ID
-    public void setCandidate_ID(int candidate_ID) {
+    public void setCandidate_ID(Integer candidate_ID) {
         this.candidate_ID = candidate_ID;
     }
 

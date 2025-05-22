@@ -31,8 +31,8 @@ public interface ResultRepository extends JpaRepository<ResultModel, Integer> {
             "WHERE r.poll_ID = :poll_ID")
     List<CandidateModel> getCandidatesWithVotesByPollID(@Param("poll_ID") int poll_ID);
 
-    // Retrieves candidates in a poll, ordered by the number of votes casted (highest first)
+    // Retrieves candidate winner in a poll
     @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate_ID " +
             "WHERE r.poll_ID = :poll_ID ORDER BY r.votes_casted DESC")
-    List<CandidateModel> getOrderedCandidatesWithVotesByPollID(@Param("poll_ID") int poll_ID);
+    Optional<CandidateModel> getWinnerByPollID(@Param("poll_ID") int poll_ID);
 }
