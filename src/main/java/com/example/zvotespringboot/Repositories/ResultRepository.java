@@ -13,19 +13,25 @@ import java.util.Optional;
 @Repository
 public interface ResultRepository extends JpaRepository<ResultModel, Integer> {
 
+    // Retrieves all result entries for a given poll ID
     List<ResultModel> findByPollID(int poll_ID);
 
+    // Retrieves all result entries for a given candidate ID
     List<ResultModel> findByCandidateID(int candidate_ID);
 
+    // Retrieves a specific result entry by poll ID and candidate ID
     Optional<ResultModel> findByPollIDAndCandidateID(int poll_ID, int candidate_ID);
 
+    // Calculates the total number of votes casted for a specific poll
     @Query("SELECT SUM(r.votes_casted) FROM ResultModel r WHERE r.poll_ID = :poll_ID")
     Integer getTotalVotesForPoll(@Param("poll_ID") int poll_ID);
 
+    // Retrieves all candidates who have results (i.e., received votes) in a specific poll
     @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate_ID " +
             "WHERE r.poll_ID = :poll_ID")
     List<CandidateModel> getCandidatesWithVotesByPollID(@Param("poll_ID") int poll_ID);
 
+    // Retrieves candidates in a poll, ordered by the number of votes casted (highest first)
     @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate_ID " +
             "WHERE r.poll_ID = :poll_ID ORDER BY r.votes_casted DESC")
     List<CandidateModel> getOrderedCandidatesWithVotesByPollID(@Param("poll_ID") int poll_ID);

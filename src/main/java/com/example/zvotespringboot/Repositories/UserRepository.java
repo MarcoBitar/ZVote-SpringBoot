@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
+
     // Check if username already exists
     boolean existsByUsername(String username);
 
