@@ -15,10 +15,9 @@ public class VoteModel {
     private int poll_ID;
 
     private LocalDateTime timestamp;
-
     private int blank;
-
     private int candidate_ID;
+
 
     public VoteModel() {
         super();
