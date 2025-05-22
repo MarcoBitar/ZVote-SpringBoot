@@ -10,6 +10,7 @@ import java.sql.Date;
 public class ResultModel {
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int result_ID;
 

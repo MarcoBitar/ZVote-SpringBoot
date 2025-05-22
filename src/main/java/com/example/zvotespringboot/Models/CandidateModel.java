@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class CandidateModel {
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int candidate_ID;
 

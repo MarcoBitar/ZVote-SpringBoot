@@ -10,6 +10,7 @@ import java.sql.Date;
 public class PollModel {
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int poll_ID;
 
@@ -22,6 +23,7 @@ public class PollModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date end_date;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
 

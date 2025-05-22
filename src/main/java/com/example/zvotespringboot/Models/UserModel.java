@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class UserModel {
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_ID;
 
