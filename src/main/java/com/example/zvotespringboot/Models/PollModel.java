@@ -40,6 +40,7 @@ public class PollModel {
         super();
     }
 
+
     // Constructor using setters
     public PollModel(String title, String description, Date start_date, Date end_date, int admin_ID) {
         setTitle(title);
