@@ -38,9 +38,9 @@ public class PollService {
         return pollRepository.findAll();
     }
 
-    // Get poll by title
-    public PollModel getPollByTitle(String title) {
-        return pollRepository.findByTitle(title).orElse(null);
+    // Get poll by poll id
+    public PollModel getPollByPoll_ID(int poll_ID) {
+        return pollRepository.findById(poll_ID).orElse(null);
     }
 
     // Update a poll

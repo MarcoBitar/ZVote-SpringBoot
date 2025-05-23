@@ -36,11 +36,11 @@ public class PollController {
     }
 
     // GET /zvote/getpoll/{title}
-    @GetMapping("/getpoll/{title}")
-    public ResponseEntity<?> getPollByTitle(@PathVariable String title) {
-        PollModel poll = pollService.getPollByTitle(title);
+    @GetMapping("/getpoll/{poll_ID}")
+    public ResponseEntity<?> getPollByPoll_ID(@PathVariable int poll_ID) {
+        PollModel poll = pollService.getPollByPoll_ID(poll_ID);
         return poll != null ? ResponseEntity.ok(poll)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("No poll with this title exists");
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("No poll found with this ID");
     }
 
     // PUT /zvote/updatepoll
