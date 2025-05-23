@@ -35,7 +35,7 @@ public class PollController {
         return ResponseEntity.ok(pollService.getAllPolls());
     }
 
-    // GET /zvote/getpoll/{title}
+    // GET /zvote/getpoll/{poll_ID}
     @GetMapping("/getpoll/{poll_ID}")
     public ResponseEntity<?> getPollByPoll_ID(@PathVariable int poll_ID) {
         PollModel poll = pollService.getPollByPoll_ID(poll_ID);
