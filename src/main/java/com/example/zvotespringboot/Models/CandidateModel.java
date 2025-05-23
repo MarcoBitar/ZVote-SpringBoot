@@ -21,12 +21,15 @@ public class CandidateModel {
     private String name;
 
     @Lob
-    @Column(name = "photo")
+    @Column(name = "photo", columnDefinition = "MEDIUMBLOB")
     private byte[] photo;
 
     private String bio;
 
+    @Transient
     private int voteCount;
+
+    @Transient
     private double votePercentage;
 
 

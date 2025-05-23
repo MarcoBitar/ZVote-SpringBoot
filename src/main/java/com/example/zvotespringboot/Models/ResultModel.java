@@ -21,8 +21,14 @@ public class ResultModel {
     private java.sql.Date withdrawal_date;
 
     private int votes_casted;
-    private int candidate_ID;
-    private int poll_ID;
+
+    @ManyToOne
+    @JoinColumn(name = "poll_ID", nullable = false)
+    private PollModel poll;
+
+    @ManyToOne
+    @JoinColumn(name = "candidate_ID", nullable = false)
+    private CandidateModel candidate;
 
 
     // Default constructor
@@ -88,27 +94,26 @@ public class ResultModel {
     }
 
 
-    // Getter for candidate_ID
     public int getCandidate_ID() {
-        return candidate_ID;
+        return candidate != null ? candidate.getCandidate_ID() : 0;
     }
 
-
-    // Setter for candidate_ID
     public void setCandidate_ID(int candidate_ID) {
-        this.candidate_ID = candidate_ID;
+        if (this.candidate == null) {
+            this.candidate = new CandidateModel();
+        }
+        this.candidate.setCandidate_ID(candidate_ID);
     }
 
-
-    // Getter for poll_ID
     public int getPoll_ID() {
-        return poll_ID;
+        return poll != null ? poll.getPoll_ID() : 0;
     }
 
-
-    // Setter for poll_ID
     public void setPoll_ID(int poll_ID) {
-        this.poll_ID = poll_ID;
+        if (this.poll == null) {
+            this.poll = new PollModel();
+        }
+        this.poll.setPoll_ID(poll_ID);
     }
 
 
@@ -119,7 +124,7 @@ public class ResultModel {
                 ", registration_date = " + registration_date +
                 ", votes_casted = " + votes_casted +
                 ", withdrawal_date = " + withdrawal_date +
-                ", candidate_ID = " + candidate_ID +
-                ", poll_ID = " + poll_ID;
+                ", candidate_ID = " + (candidate != null ? candidate.getCandidate_ID() : "null") +
+                ", poll_ID = " + (poll != null ? poll.getPoll_ID() : "null");
     }
 }

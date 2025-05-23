@@ -3,6 +3,7 @@ package com.example.zvotespringboot.Controllers;
 import com.example.zvotespringboot.Models.UserModel;
 import com.example.zvotespringboot.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class UserController {
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         UserModel user = userService.getUserByUsername(username);
         return user != null ? ResponseEntity.ok(user)
-                : ResponseEntity.notFound().build();
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username '" + username + "' not found.");
     }
 
     // PUT /zvote/updateuser

@@ -37,17 +37,17 @@ public class ResultService {
 
     // Read by Poll + Candidate ID
     public Optional<ResultModel> getResultByPollAndCandidateID(int poll_ID, int candidate_ID) {
-        return resultRepository.findByPollIDAndCandidateID(poll_ID, candidate_ID);
+        return resultRepository.findByPoll_IDAndCandidate_ID(poll_ID, candidate_ID);
     }
 
     // Read all by Poll ID
     public List<ResultModel> getResultsByPollID(int poll_ID) {
-        return resultRepository.findByPollID(poll_ID);
+        return resultRepository.findByPoll_ID(poll_ID);
     }
 
     // Read all by Candidate ID
     public List<ResultModel> getResultsByCandidateID(int candidate_ID) {
-        return resultRepository.findByCandidateID(candidate_ID);
+        return resultRepository.findByCandidate_ID(candidate_ID);
     }
 
     // Update
@@ -74,7 +74,7 @@ public class ResultService {
 
     // Get total votes for a poll
     public int getTotalVotesForPoll(int poll_ID) {
-        Integer totalVotes = resultRepository.getTotalVotesForPoll(poll_ID);
+        Integer totalVotes = resultRepository.getTotalVotesForPoll_ID(poll_ID);
         return totalVotes != null ? totalVotes : 0;
     }
 
@@ -87,10 +87,10 @@ public class ResultService {
     // Get candidates with vote count and percentage
     public List<CandidateModel> getCandidatesWithVotesByPollID(int poll_ID) {
         int totalVotes = getTotalVotesForPoll(poll_ID);
-        List<CandidateModel> candidates = resultRepository.getCandidatesWithVotesByPollID(poll_ID);
+        List<CandidateModel> candidates = resultRepository.getCandidatesWithVotesByPoll_ID(poll_ID);
 
         for (CandidateModel candidate : candidates) {
-            Optional<ResultModel> result = resultRepository.findByPollIDAndCandidateID(poll_ID, candidate.getCandidate_ID());
+            Optional<ResultModel> result = resultRepository.findByPoll_IDAndCandidate_ID(poll_ID, candidate.getCandidate_ID());
             result.ifPresent(r -> {
                 candidate.setVoteCount(r.getVotes_casted());
                 candidate.setVotePercentage(getVotePercentage(r.getVotes_casted(), totalVotes));
@@ -102,6 +102,6 @@ public class ResultService {
 
     // Get poll winner
     public CandidateModel getWinnerByPollID(int poll_ID) {
-        return resultRepository.getWinnerByPollID(poll_ID).orElse(null);
+        return resultRepository.getWinnerByPoll_ID(poll_ID).orElse(null);
     }
 }

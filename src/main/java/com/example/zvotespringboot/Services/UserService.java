@@ -2,6 +2,7 @@ package com.example.zvotespringboot.Services;
 
 import com.example.zvotespringboot.Models.UserModel;
 import com.example.zvotespringboot.Repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,7 @@ public class UserService {
     }
 
     // Delete user
+    @Transactional
     public void deleteUser(String username) {
         if (!userRepository.existsByUsername(username)) {
             throw new IllegalArgumentException("No user found with the specified username.");

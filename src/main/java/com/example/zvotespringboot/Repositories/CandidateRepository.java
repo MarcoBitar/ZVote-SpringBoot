@@ -19,6 +19,6 @@ public interface CandidateRepository extends JpaRepository<CandidateModel, Integ
     boolean existsByName(String name);
 
     // Find all candidates linked to a poll via the result table
-    @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate_ID WHERE r.poll_ID = :poll_ID")
-    List<CandidateModel> findByPollID(@Param("poll_ID") int poll_ID);
+    @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate.candidate_ID WHERE r.poll.poll_ID = :poll_ID")
+    List<CandidateModel> findByPoll_ID(@Param("poll_ID") int poll_ID);
 }

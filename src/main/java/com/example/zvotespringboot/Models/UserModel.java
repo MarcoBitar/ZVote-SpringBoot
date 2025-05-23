@@ -1,8 +1,10 @@
 package com.example.zvotespringboot.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -18,16 +20,25 @@ public class UserModel {
     private int user_ID;
 
     private String username;
+
+    @Email
     private String user_email;
+
     private String user_pass;
 
     @Lob
-    @Column(name = "user_photoID")
+    @Column(name = "user_photoID", columnDefinition = "MEDIUMBLOB")
     private byte[] user_photoID;
 
     private String phoneNb;
-    private String role;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    // Enum for user role
+    public enum Role {
+        voter, admin
+    }
     public UserModel() {
         super();
     }
@@ -39,7 +50,7 @@ public class UserModel {
         setUser_pass(user_pass);
         setUser_photoID(user_photoID);
         setPhoneNb(phoneNb);
-        setRole("voter");  // Default role is set to "voter"
+        setRole(Role.voter);  // Default role is set to "voter"
     }
 
 
@@ -131,13 +142,13 @@ public class UserModel {
 
 
     // Getter for role
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
 
     // Setter for role
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -146,7 +157,7 @@ public class UserModel {
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");  // Create MessageDigest for SHA-256
-            byte[] hashedBytes = md.digest(password.getBytes("UTF-8"));
+            byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
 
             // Convert the hashed bytes to a simple hexadecimal string
             StringBuilder hexString = new StringBuilder();

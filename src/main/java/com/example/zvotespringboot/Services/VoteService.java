@@ -17,7 +17,7 @@ public class VoteService {
 
     // Add a vote if the user hasn't already voted in the poll
     public boolean addVote(VoteModel vote) {
-        boolean hasVoted = voteRepository.existsByUserIDAndPollID(vote.getUser_ID(), vote.getPoll_ID());
+        boolean hasVoted = voteRepository.existsByUser_IDAndPoll_ID(vote.getUser_ID(), vote.getPoll_ID());
 
         if (hasVoted) {
             return false;  // Prevent duplicate voting
@@ -43,19 +43,19 @@ public class VoteService {
 
     // Get votes by poll ID
     public List<VoteModel> getVotesByPollID(int poll_ID) {
-        return voteRepository.findByPollID(poll_ID);
+        return voteRepository.findByPoll_ID(poll_ID);
     }
 
     // Get votes by candidate ID
     public List<VoteModel> getVotesByCandidateID(int candidate_ID) {
-        return voteRepository.findByCandidateID(candidate_ID);
+        return voteRepository.findByCandidate_ID(candidate_ID);
     }
 
     // Delete vote by user ID and poll ID
     public boolean deleteVote(int user_ID, int poll_ID) {
-        Optional<VoteModel> voteOptional = voteRepository.findByUserIDAndPollID(user_ID, poll_ID);
+        Optional<VoteModel> voteOptional = voteRepository.findByUser_IDAndPoll_ID(user_ID, poll_ID);
         if (voteOptional.isPresent()) {
-            voteRepository.deleteByUserIDAndPollID(user_ID, poll_ID);
+            voteRepository.deleteByUser_IDAndPoll_ID(user_ID, poll_ID);
             return true;
         } else {
             return false;
@@ -64,6 +64,6 @@ public class VoteService {
 
     // Check if a user has voted in a specific poll
     public boolean hasUserVoted(int userID, int pollID) {
-        return voteRepository.existsByUserIDAndPollID(userID, pollID);
+        return voteRepository.existsByUser_IDAndPoll_ID(userID, pollID);
     }
 }

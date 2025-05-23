@@ -34,7 +34,7 @@ public class CandidateService {
 
     // Get candidates by Poll ID
     public List<CandidateModel> getCandidatesByPollID(int poll_ID) {
-        return candidateRepository.findByPollID(poll_ID);
+        return candidateRepository.findByPoll_ID(poll_ID);
     }
 
     // Update candidate details
