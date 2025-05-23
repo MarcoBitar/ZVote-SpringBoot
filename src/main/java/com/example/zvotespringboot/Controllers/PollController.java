@@ -40,7 +40,7 @@ public class PollController {
     public ResponseEntity<?> getPollByTitle(@PathVariable String title) {
         PollModel poll = pollService.getPollByTitle(title);
         return poll != null ? ResponseEntity.ok(poll)
-                : ResponseEntity.notFound().build();
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("No poll with this title exists");
     }
 
     // PUT /zvote/updatepoll
