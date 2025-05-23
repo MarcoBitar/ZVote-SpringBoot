@@ -36,6 +36,6 @@ public interface ResultRepository extends JpaRepository<ResultModel, Integer> {
 
     // Retrieves candidate winner in a poll
     @Query("SELECT c FROM CandidateModel c JOIN ResultModel r ON c.candidate_ID = r.candidate.candidate_ID " +
-            "WHERE r.poll.poll_ID = :poll_ID ORDER BY r.votes_casted DESC")
+            "WHERE r.poll.poll_ID = :poll_ID ORDER BY r.votes_casted DESC LIMIT 1")
     Optional<CandidateModel> getWinnerByPoll_ID(@Param("poll_ID") int poll_ID);
 }

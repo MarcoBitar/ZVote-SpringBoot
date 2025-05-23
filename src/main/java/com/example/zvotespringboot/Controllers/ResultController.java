@@ -4,6 +4,7 @@ import com.example.zvotespringboot.Models.CandidateModel;
 import com.example.zvotespringboot.Models.ResultModel;
 import com.example.zvotespringboot.Services.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,14 +39,20 @@ public class ResultController {
     @GetMapping("/getresult/{id}")
     public ResponseEntity<?> getResultByID(@PathVariable int id) {
         Optional<ResultModel> result = resultService.getResultByID(id);
-        return result.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return result.<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("No Result Found"));
     }
 
     // GET /zvote/getresultbypollcandidate/{pollID}/{candidateID}
     @GetMapping("/getresultbypollcandidate/{pollID}/{candidateID}")
     public ResponseEntity<?> getResultByPollAndCandidate(@PathVariable int pollID, @PathVariable int candidateID) {
         Optional<ResultModel> result = resultService.getResultByPollAndCandidateID(pollID, candidateID);
-        return result.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return result.<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("No Result Found"));
     }
 
     // GET /zvote/getresultsbypoll/{pollID}
@@ -98,6 +105,6 @@ public class ResultController {
     @GetMapping("/winner/{pollID}")
     public ResponseEntity<?> getWinnerByPollID(@PathVariable int pollID) {
         CandidateModel winner = resultService.getWinnerByPollID(pollID);
-        return winner != null ? ResponseEntity.ok(winner) : ResponseEntity.notFound().build();
+        return winner != null ? ResponseEntity.ok(winner) : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Result not found.");
     }
 }
