@@ -3,6 +3,7 @@ package com.example.zvotespringboot.Controllers;
 import com.example.zvotespringboot.Models.CandidateModel;
 import com.example.zvotespringboot.Services.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,8 @@ public class CandidateController {
     @GetMapping("/getcandidate/{id}")
     public ResponseEntity<?> getCandidateByID(@PathVariable int id) {
         return candidateService.getCandidateByID(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("No candidate found with this ID"));
     }
 
     // GET /zvote/getcandidatesbypoll/{pollID}
