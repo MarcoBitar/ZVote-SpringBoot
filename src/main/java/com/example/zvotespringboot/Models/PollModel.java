@@ -55,78 +55,116 @@ public class PollModel {
         setAdmin_ID(admin_ID);
     }
 
+
+    // Getter for poll id
     public int getPoll_ID() {
         return poll_ID;
     }
 
+
+    // Setter for poll id
     public void setPoll_ID(int poll_ID) {
         this.poll_ID = poll_ID;
     }
 
+
+    // Getter for title
     public String getTitle() {
         return title;
     }
 
+
+    // Setter for title
     public void setTitle(String title) {
         this.title = title;
     }
 
+
+    // Getter for description
     public String getDescription() {
         return description;
     }
 
+
+    // Setter for description
     public void setDescription(String description) {
         this.description = description;
     }
 
+
+    // Getter for start date
     public Date getStart_date() {
         return start_date;
     }
 
+
+    // Setter for start date
     public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 
+
+    // Getter for end date
     public Date getEnd_date() {
         return end_date;
     }
 
+
+    // Setter for end date
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }
 
+
+    // Getter for status
     public Status getStatus() {
         return status;
     }
 
+
+    // Setter for status
     public void setStatus(Status status) {
         this.status = status;
     }
 
+
+    // Getter for nb of votes
     public int getNbOfVotes() {
         return nbOfVotes;
     }
 
+
+    // Setter for nb of votes
     public void setNbOfVotes(int nbOfVotes) {
         this.nbOfVotes = nbOfVotes;
     }
 
+
+    // Getter for nb of abstentions
     public int getNbOfAbstentions() {
         return nbOfAbstentions;
     }
 
+
+    // Setter for nb of abstentions
     public void setNbOfAbstentions(int nbOfAbstentions) {
         this.nbOfAbstentions = nbOfAbstentions;
     }
 
+
+    // Getter for admin id
     public int getAdmin_ID() {
         return admin_ID;
     }
 
+
+    // Setter for admin id
     public void setAdmin_ID(int admin_ID) {
         this.admin_ID = admin_ID;
     }
 
+
+    // toString method to provide a string representation of the PollModel object
     @Override
     public String toString() {
         return "PollModel{" +

@@ -94,10 +94,13 @@ public class ResultModel {
     }
 
 
+    // Getter for candidate id
     public int getCandidate_ID() {
         return candidate != null ? candidate.getCandidate_ID() : 0;
     }
 
+
+    // Setter for candidate id
     public void setCandidate_ID(int candidate_ID) {
         if (this.candidate == null) {
             this.candidate = new CandidateModel();
@@ -105,10 +108,14 @@ public class ResultModel {
         this.candidate.setCandidate_ID(candidate_ID);
     }
 
+
+    // Getter for poll id
     public int getPoll_ID() {
         return poll != null ? poll.getPoll_ID() : 0;
     }
 
+
+    // Setter for poll id
     public void setPoll_ID(int poll_ID) {
         if (this.poll == null) {
             this.poll = new PollModel();
