@@ -2,6 +2,7 @@ package com.example.zvotespringboot.Repositories;
 
 import com.example.zvotespringboot.Models.VoteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ public interface VoteRepository extends JpaRepository<VoteModel, Integer> {
 
     // Check if a user has already voted in a specific poll
     @Query("SELECT v FROM VoteModel v WHERE v.user.user_ID = :user_ID AND v.poll.poll_ID = :poll_ID")
-    boolean existsByUser_IDAndPoll_ID(int user_ID, int poll_ID);
+    Optional<VoteModel> existsByUser_IDAndPoll_ID(int user_ID, int poll_ID);
 
     // Find all votes by poll ID
     @Query("SELECT v FROM VoteModel v WHERE v.poll.poll_ID = :poll_ID")
@@ -28,6 +29,7 @@ public interface VoteRepository extends JpaRepository<VoteModel, Integer> {
     Optional<VoteModel> findByUser_IDAndPoll_ID(int user_ID, int poll_ID);
 
     // Delete a vote by user ID and poll ID
-    @Query("SELECT v FROM VoteModel v WHERE v.user.user_ID = :user_ID AND v.poll.poll_ID = :poll_ID")
+    @Modifying
+    @Query("DELETE FROM VoteModel v WHERE v.user.user_ID = :user_ID AND v.poll.poll_ID = :poll_ID")
     void deleteByUser_IDAndPoll_ID(int user_ID, int poll_ID);
 }
