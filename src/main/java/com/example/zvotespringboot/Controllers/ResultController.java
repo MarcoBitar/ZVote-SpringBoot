@@ -96,6 +96,7 @@ public class ResultController {
     }
 
     // GET /zvote/votepercentage/{candidatevotes}/{totalvotes}
+    @GetMapping("/votepercentage/{candidatevotes}/{totalvotes}")
     public ResponseEntity<Double> getVotePercentage(@PathVariable int candidatevotes, @PathVariable int totalvotes) {
         return ResponseEntity.ok(getVotePercentage(candidatevotes, totalvotes).getBody());
     }
