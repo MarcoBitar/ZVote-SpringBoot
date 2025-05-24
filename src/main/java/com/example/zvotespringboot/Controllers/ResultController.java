@@ -95,6 +95,11 @@ public class ResultController {
         return ResponseEntity.ok(resultService.getTotalVotesForPoll(pollID));
     }
 
+    // GET /zvote/votepercentage/{candidatevotes}/{totalvotes}
+    public ResponseEntity<Double> getVotePercentage(@PathVariable int candidatevotes, @PathVariable int totalvotes) {
+        return ResponseEntity.ok(getVotePercentage(candidatevotes, totalvotes).getBody());
+    }
+
     // GET /zvote/candidateswithvotes/{pollID}
     @GetMapping("/candidateswithvotes/{pollID}")
     public ResponseEntity<List<CandidateModel>> getCandidatesWithVotesByPollID(@PathVariable int pollID) {

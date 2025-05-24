@@ -66,6 +66,17 @@ public class VoteController {
         }
     }
 
+    // DELETE /zvote/deletevotesbycandidate/{candidateID}
+    @DeleteMapping("/deletevotesbycandidate/{candidateID}")
+    public ResponseEntity<?> deleteVotesByCandidate(@PathVariable int candidateID) {
+        boolean deleted = voteService.deleteVotesByCandidate(candidateID);
+        if (deleted) {
+            return ResponseEntity.ok("Vote deleted successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Vote not found.");
+        }
+    }
+
     // GET /zvote/hasuservoted/{userID}/{pollID}
     @GetMapping("/hasuservoted/{userID}/{pollID}")
     public ResponseEntity<Boolean> hasUserVoted(@PathVariable int userID, @PathVariable int pollID) {
