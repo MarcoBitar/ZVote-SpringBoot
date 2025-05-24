@@ -70,7 +70,7 @@ public class CandidateController {
     }
 
     // GET /zvote/candidates/{name}
-    @GetMapping("/candidates/{name}")
+    @GetMapping("/candidates/check/{name}")
     public ResponseEntity<Boolean> isNameTaken(@PathVariable String name) {
         return ResponseEntity.ok(candidateService.isNameTaken(name));
     }

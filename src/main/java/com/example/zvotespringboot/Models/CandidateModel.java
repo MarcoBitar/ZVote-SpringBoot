@@ -41,7 +41,7 @@ public class CandidateModel {
     // Constructor to initialize a CandidateModel instance
     public CandidateModel(String name, byte[] user_photoID, String bio) {
         setName(name);
-        setPhoto(photo);
+        setPhoto(user_photoID);
         setBio(bio);
     }
 
