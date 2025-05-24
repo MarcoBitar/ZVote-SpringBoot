@@ -16,8 +16,8 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
-    // POST /zvote/addcandidate
-    @PostMapping("/addcandidate")
+    // POST /zvote/candidates
+    @PostMapping("/candidates")
     public ResponseEntity<?> addCandidate(@RequestBody CandidateModel candidate) {
         try {
             CandidateModel created = candidateService.addCandidate(candidate);
@@ -27,28 +27,28 @@ public class CandidateController {
         }
     }
 
-    // GET /zvote/getallcandidates
-    @GetMapping("/getallcandidates")
+    // GET /zvote/candidates
+    @GetMapping("/candidates")
     public ResponseEntity<List<CandidateModel>> getAllCandidates() {
         return ResponseEntity.ok(candidateService.getAllCandidates());
     }
 
-    // GET /zvote/getcandidate/{id}
-    @GetMapping("/getcandidate/{id}")
+    // GET /zvote/candidates/{id}
+    @GetMapping("/candidates/{id}")
     public ResponseEntity<?> getCandidateByID(@PathVariable int id) {
         return candidateService.getCandidateByID(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("No candidate found with this ID"));
     }
 
-    // GET /zvote/getcandidatesbypoll/{pollID}
-    @GetMapping("/getcandidatesbypoll/{pollID}")
+    // GET /zvote/candidatesbypoll/{pollID}
+    @GetMapping("/candidatesbypoll/{pollID}")
     public ResponseEntity<List<CandidateModel>> getCandidatesByPollID(@PathVariable int pollID) {
         return ResponseEntity.ok(candidateService.getCandidatesByPollID(pollID));
     }
 
-    // PUT /zvote/updatecandidate
-    @PutMapping("/updatecandidate")
+    // PUT /zvote/candidates
+    @PutMapping("/candidates")
     public ResponseEntity<?> updateCandidate(@RequestBody CandidateModel candidate) {
         try {
             CandidateModel updated = candidateService.updateCandidate(candidate);
@@ -58,19 +58,19 @@ public class CandidateController {
         }
     }
 
-    // DELETE /zvote/deletecandidate/{id}
-    @DeleteMapping("/deletecandidate/{id}")
-    public ResponseEntity<?> deleteCandidate(@PathVariable int id) {
+    // DELETE /zvote/candidates/{candidateId}
+    @DeleteMapping("/candidates/{candidateId}")
+    public ResponseEntity<?> deleteCandidate(@PathVariable int candidateId) {
         try {
-            candidateService.deleteCandidate(id);
+            candidateService.deleteCandidate(candidateId);
             return ResponseEntity.ok("Candidate deleted successfully.");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    // GET /zvote/checkname/{name}
-    @GetMapping("/checkname/{name}")
+    // GET /zvote/candidates/{name}
+    @GetMapping("/candidates/{name}")
     public ResponseEntity<Boolean> isNameTaken(@PathVariable String name) {
         return ResponseEntity.ok(candidateService.isNameTaken(name));
     }

@@ -16,8 +16,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // POST /zvote/adduser
-    @PostMapping("/adduser")
+    // POST /zvote/users
+    @PostMapping("/users")
     public ResponseEntity<?> addUser(@RequestBody UserModel user) {
         try {
             UserModel createdUser = userService.addUser(user);
@@ -29,22 +29,22 @@ public class UserController {
         }
     }
 
-    // GET /zvote/getallusers
-    @GetMapping("/getallusers")
+    // GET /zvote/users
+    @GetMapping("/users")
     public ResponseEntity<List<UserModel>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    // GET /zvote/getuser/{username}
-    @GetMapping("/getuser/{username}")
+    // GET /zvote/users/{username}
+    @GetMapping("/users/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         UserModel user = userService.getUserByUsername(username);
         return user != null ? ResponseEntity.ok(user)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username '" + username + "' not found.");
     }
 
-    // PUT /zvote/updateuser
-    @PutMapping("/updateuser")
+    // PUT /zvote/users
+    @PutMapping("/users")
     public ResponseEntity<?> updateUser(@RequestBody UserModel updatedUser) {
         try {
             UserModel user = userService.updateUser(updatedUser);
@@ -54,8 +54,8 @@ public class UserController {
         }
     }
 
-    // DELETE /zvote/deleteuser/{username}
-    @DeleteMapping("/deleteuser/{username}")
+    // DELETE /zvote/users/{username}
+    @DeleteMapping("/users/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
         try {
             userService.deleteUser(username);

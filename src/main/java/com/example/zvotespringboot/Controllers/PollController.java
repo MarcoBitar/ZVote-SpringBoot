@@ -16,8 +16,8 @@ public class PollController {
     @Autowired
     private PollService pollService;
 
-    // POST /zvote/addpoll
-    @PostMapping("/addpoll")
+    // POST /zvote/polls
+    @PostMapping("/polls")
     public ResponseEntity<?> addPoll(@RequestBody PollModel poll) {
         try {
             PollModel createdPoll = pollService.addPoll(poll);
@@ -29,22 +29,22 @@ public class PollController {
         }
     }
 
-    // GET /zvote/getallpolls
-    @GetMapping("/getallpolls")
+    // GET /zvote/polls
+    @GetMapping("/polls")
     public ResponseEntity<List<PollModel>> getAllPolls() {
         return ResponseEntity.ok(pollService.getAllPolls());
     }
 
-    // GET /zvote/getpoll/{poll_ID}
-    @GetMapping("/getpoll/{poll_ID}")
+    // GET /zvote/polls/{poll_ID}
+    @GetMapping("/polls/{poll_ID}")
     public ResponseEntity<?> getPollByPoll_ID(@PathVariable int poll_ID) {
         PollModel poll = pollService.getPollByPoll_ID(poll_ID);
         return poll != null ? ResponseEntity.ok(poll)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("No poll found with this ID");
     }
 
-    // PUT /zvote/updatepoll
-    @PutMapping("/updatepoll")
+    // PUT /zvote/polls
+    @PutMapping("/polls")
     public ResponseEntity<?> updatePoll(@RequestBody PollModel poll) {
         try {
             PollModel updatedPoll = pollService.updatePoll(poll);
@@ -54,8 +54,8 @@ public class PollController {
         }
     }
 
-    // DELETE /zvote/deletepoll/{poll_ID}
-    @DeleteMapping("/deletepoll/{poll_ID}")
+    // DELETE /zvote/polls/{poll_ID}
+    @DeleteMapping("/polls/{poll_ID}")
     public ResponseEntity<?> deletePoll(@PathVariable int poll_ID) {
         try {
             pollService.deletePoll(poll_ID);
