@@ -43,6 +43,16 @@ public class UserController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username '" + username + "' not found.");
     }
 
+
+    // GET /zvote/users/role/{username}
+    @GetMapping("/users/role/{username}")
+    public ResponseEntity<?> getUserByRole(@PathVariable String username) {
+        UserModel user = userService.getUserByUsername(username);
+        return user != null ? ResponseEntity.ok(user.getRole())
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username '" + username + "' not found.");
+    }
+
+
     // PUT /zvote/users
     @PutMapping("/users")
     public ResponseEntity<?> updateUser(@RequestBody UserModel updatedUser) {
