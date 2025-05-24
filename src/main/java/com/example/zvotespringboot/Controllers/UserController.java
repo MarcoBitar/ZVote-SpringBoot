@@ -46,7 +46,7 @@ public class UserController {
 
     // GET /zvote/users/role/{username}
     @GetMapping("/users/role/{username}")
-    public ResponseEntity<?> getUserByRole(@PathVariable String username) {
+    public ResponseEntity<?> getRoleByUsername(@PathVariable String username) {
         UserModel user = userService.getUserByUsername(username);
         return user != null ? ResponseEntity.ok(user.getRole())
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username '" + username + "' not found.");
