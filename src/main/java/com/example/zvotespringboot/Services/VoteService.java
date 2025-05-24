@@ -64,6 +64,18 @@ public class VoteService {
         }
     }
 
+    // Delete vote poll ID
+    @Transactional
+    public boolean deleteVotesByPoll(int poll_ID) {
+        List<VoteModel> votes = voteRepository.findByPoll_ID(poll_ID);
+        if (!votes.isEmpty()) {
+            voteRepository.deleteAll(votes);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Check if a user has voted in a specific poll
     public boolean hasUserVoted(int userID, int pollID) {
         return voteRepository.existsByUser_IDAndPoll_ID(userID, pollID).isPresent();
