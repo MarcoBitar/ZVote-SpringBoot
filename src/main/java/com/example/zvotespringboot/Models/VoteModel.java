@@ -57,6 +57,18 @@ public class VoteModel {
     }
 
 
+    // Getter for user
+    public UserModel getUser() {
+        return user;
+    }
+
+
+    // Setter for user
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+
     // Getter for poll_ID
     public int getPoll_ID() {
         return poll != null ? poll.getPoll_ID() : 0;
@@ -69,6 +81,18 @@ public class VoteModel {
             this.poll = new PollModel();
         }
         this.poll.setPoll_ID(poll_ID);
+    }
+
+
+    // Getter for poll
+    public PollModel getPoll() {
+        return poll;
+    }
+
+
+    // Setter for poll
+    public void setPoll(PollModel poll) {
+        this.poll = poll;
     }
 
 
@@ -108,6 +132,18 @@ public class VoteModel {
             this.candidate = new CandidateModel();
         }
         this.candidate.setCandidate_ID(candidate_ID);
+    }
+
+
+    // Getter for candidate
+    public CandidateModel getCandidate() {
+        return candidate;
+    }
+
+
+    // Setter for candidate
+    public void setCandidate(CandidateModel candidate) {
+        this.candidate = candidate;
     }
 
 

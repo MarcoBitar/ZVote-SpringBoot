@@ -1,6 +1,9 @@
 package com.example.zvotespringboot.Services;
 
 import com.example.zvotespringboot.Models.VoteModel;
+import com.example.zvotespringboot.Repositories.CandidateRepository;
+import com.example.zvotespringboot.Repositories.PollRepository;
+import com.example.zvotespringboot.Repositories.UserRepository;
 import com.example.zvotespringboot.Repositories.VoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +19,32 @@ public class VoteService {
     @Autowired
     private VoteRepository voteRepository;
 
-    // Add a vote if the user hasn't already voted in the poll
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PollRepository pollRepository;
+
+    @Autowired
+    private CandidateRepository candidateRepository;
+
     public boolean addVote(VoteModel vote) {
-        boolean hasVoted = voteRepository.existsByUser_IDAndPoll_ID(vote.getUser_ID(), vote.getPoll_ID()).isPresent();
+        boolean hasVoted = voteRepository.existsByUser_IDAndPoll_ID(
+                vote.getUser().getUser_ID(),
+                vote.getPoll().getPoll_ID()
+        ).isPresent();
 
         if (hasVoted) {
             return false;  // Prevent duplicate voting
         }
 
         try {
-            // If abstaining, set candidate_ID to null
-            if (vote.getCandidate_ID() == 0) {
-                vote.setCandidate_ID(null);
+            // Handle abstention vote
+            if (vote.getCandidate() != null && vote.getCandidate().getCandidate_ID() == 0) {
+                vote.setCandidate(null);
+                vote.setBlank(true);
             }
+
             voteRepository.save(vote);
             return true;
         } catch (DataIntegrityViolationException e) {
@@ -36,6 +52,7 @@ public class VoteService {
             return false;
         }
     }
+
 
     // Get all votes
     public List<VoteModel> getAllVotes() {
