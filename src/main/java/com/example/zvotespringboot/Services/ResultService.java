@@ -1,8 +1,11 @@
 package com.example.zvotespringboot.Services;
 
 import com.example.zvotespringboot.Models.CandidateModel;
+import com.example.zvotespringboot.Models.PollModel;
 import com.example.zvotespringboot.Models.ResultModel;
 import com.example.zvotespringboot.Repositories.ResultRepository;
+import com.example.zvotespringboot.Repositories.PollRepository;
+import com.example.zvotespringboot.Repositories.CandidateRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +20,28 @@ public class ResultService {
     @Autowired
     private ResultRepository resultRepository;
 
-    // Create
+    @Autowired
+    private PollRepository pollRepository;
+
+    @Autowired
+    private CandidateRepository candidateRepository;
+
     public ResultModel addResult(ResultModel result) {
         if (result.getRegistration_date() == null) {
             result.setRegistration_date(new java.sql.Date(System.currentTimeMillis()));
         }
+
+        int pollId = result.getPoll_ID();
+        int candidateId = result.getCandidate_ID();
+
+        PollModel poll = pollRepository.findById(pollId)
+                .orElseThrow(() -> new RuntimeException("Poll not found with ID: " + pollId));
+        CandidateModel candidate = candidateRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidate not found with ID: " + candidateId));
+
+        result.setPoll(poll);
+        result.setCandidate(candidate);
+
         return resultRepository.save(result);
     }
 

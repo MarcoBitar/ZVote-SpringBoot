@@ -124,6 +124,17 @@ public class ResultModel {
     }
 
 
+    // Setter for poll
+    public void setPoll(PollModel poll) {
+        this.poll = poll;
+    }
+
+
+    public void setCandidate(CandidateModel candidate) {
+        this.candidate = candidate;
+    }
+
+
     // toString method to provide a string representation of the ResultModel object
     @Override
     public String toString() {
