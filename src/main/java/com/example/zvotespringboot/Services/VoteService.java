@@ -107,6 +107,7 @@ public class VoteService {
 
     // Check if a user has voted in a specific poll
     public boolean hasUserVoted(int userID, int pollID) {
-        return voteRepository.existsByUser_IDAndPoll_ID(userID, pollID).isPresent();
+        Optional<VoteModel> result = voteRepository.existsByUser_IDAndPoll_ID(userID, pollID);
+        return result.isPresent();
     }
 }
